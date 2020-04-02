@@ -2,7 +2,7 @@
 
 1. Install and follow the instructions for [jwt-authentication-for-wp-rest-api](https://en-gb.wordpress.org/plugins/jwt-authentication-for-wp-rest-api)
 
-2. Set `preview_post_link` in your `functions.php`:
+2. Set `preview_post_link` in your `functions.php`, ensuring that you provide values for `PREVIEW_SECRET` and `FRONTEND_URL`.
 
 ```
 /**
