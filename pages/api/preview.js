@@ -1,9 +1,9 @@
-import { getDraftPost } from '../../lib/api';
+import { getPost, getPreviewPost } from '../../lib/api';
 
 const PREVIEW_SECRET = 'abc123';
 
 export default async (req, res) => {
-  const { secret, id, type, rev, wpnonce } = req.query;
+  const { secret, id, type, rev, status, wpnonce } = req.query;
 
   // check the secret and next parameters
   if (secret !== PREVIEW_SECRET) {
@@ -11,7 +11,7 @@ export default async (req, res) => {
   }
 
   // fetch the headless CMS to check if the provided `slug` exists
-  const post = await getDraftPost(id, type, rev, 'draft', wpnonce);
+  const post = await getPreviewPost(id, type, rev, status, wpnonce)
 
   // if the slug doesn't exist prevent preview mode from being enabled
   if (!post) {
@@ -21,6 +21,8 @@ export default async (req, res) => {
   // enable Preview Mode by setting the cookies
   res.setPreviewData({
     rev,
+    type,
+    status,
     wpnonce,
   });
 

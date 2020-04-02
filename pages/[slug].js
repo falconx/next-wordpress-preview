@@ -1,4 +1,4 @@
-import { getPost, getDraftPost, getAllPosts } from '../lib/api';
+import { getPost, getPreviewPost, getAllPosts } from '../lib/api';
 
 const Post = props => (
   <div>
@@ -8,11 +8,11 @@ const Post = props => (
 
 export async function getStaticProps({ params, preview = false, previewData }) {
   const postId = params.slug;
-  const postType = 'page';
+  const { type, rev, status, wpnonce } = previewData;
 
   const post = preview
-    ? await getDraftPost(postId, postType, previewData.rev, previewData.wpnonce)
-    : await getPost(postId, postType);
+    ? await getPreviewPost(postId, type, rev, status, wpnonce)
+    : await getPost(postId, 'page');
 
   return {
     props: {
