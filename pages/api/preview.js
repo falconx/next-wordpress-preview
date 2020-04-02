@@ -1,5 +1,6 @@
 import { getPost, getPreviewPost } from '../../lib/api';
 
+// Todo: move to env variable
 const PREVIEW_SECRET = 'abc123';
 
 export default async (req, res) => {
